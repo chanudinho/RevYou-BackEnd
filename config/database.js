@@ -1,11 +1,11 @@
-{
-  "development": {
-    "username": "postgres",
-    "password": "1234",
-    "database": "revyou",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  },
+module.exports = { 
+  username: "postgres",
+  password: "1234",
+  database: "revyou",
+  host: "127.0.0.1",
+  dialect: "postgres"
+}
+/*,
   "test": {
     "username": "root",
     "password": null, 
@@ -20,4 +20,4 @@
     "host": "127.0.0.1",
     "dialect": "postgres"
   }
-}
+}*/
