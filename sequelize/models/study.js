@@ -13,8 +13,6 @@ module.exports = (sequelize, DataTypes) => {
     issn: DataTypes.STRING,
     doi: DataTypes.STRING
   });
-  study.associate = function(models) {
-    // associations can be defined here
-  };
+
   return study;
 };
