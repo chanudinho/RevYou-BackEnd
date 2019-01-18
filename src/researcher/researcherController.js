@@ -1,18 +1,20 @@
-const Researcher = require('../../sequelize/models/researcher');
+const {Researcher} = require('../../sequelize/models/index');
 
-const createResearcher= async (req, res) => {
+const createResearcher= (req, res) => {
     try{
         const {name, email, password} = req.body;
         
-        /* await Researcher.findOrCreate({where: {email: email}, defaults: {name: name, password: password}})
+        Researcher.findOrCreate({where: {email: email}, defaults: {name: name, password: password}})
         .spread((researcher, created) => {
             researcher.get({
                 plain: true
             });
-            console.log(created);
-        });*/
-        Researcher.create({name: 'name', email: 'email', password: 'password'});
-        return res.status(201).send('sucesso');
+            if(created === true){
+                return res.status(201).send('pesquisador cadastrado com sucesso');
+            }else{
+                return res.status(401).send('email ja cadastrado');
+            }
+        });
     }catch (err){
         return res.status(500).send('error');
     }
