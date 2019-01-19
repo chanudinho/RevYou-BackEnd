@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const study = sequelize.define('study', {
+  const Study = sequelize.define('Study', {
     title: DataTypes.STRING,
     authors: DataTypes.STRING,
     citekey: DataTypes.STRING,
@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     url: DataTypes.STRING,
     issn: DataTypes.STRING,
     doi: DataTypes.STRING
-  });
+  }, {freezeTableName: true});
 
-  return study;
+  return Study;
 };
