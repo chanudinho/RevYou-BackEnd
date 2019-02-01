@@ -10,16 +10,16 @@ Read this in other languages: [Português](README.pt.md)
 ```
 ### A typical top-level directory layout
 
-    .
-    ├── node_modules			# All dependencies installed
-    ├── config                  # 
-    ├── sequelize               # 
-    ├── src                     # Source files
-	├── .sequelizerc            # 
-	├── index.js                #
-    ├── package.json
-	├── README.pt.md 
-    └── README.md
+.
+├── node_modules	    # All dependencies installed
+├── config                  # 
+├── sequelize               # 
+├── src                     # Source files
+├── .sequelizerc            # 
+├── index.js                #
+├── package.json
+├── README.pt.md 
+└── README.md
 
 ```
 
