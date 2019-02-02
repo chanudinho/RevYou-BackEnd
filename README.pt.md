@@ -11,7 +11,7 @@ Acesse um dos links a seguir para ler em outros idiomas: [English](README.md)
 ### Layout típico de diretório top-level
 
 .
-├── node_modules	    	 # Onde as dependências estão instaladas
+├── node_modules            # Onde as dependências estão instaladas
 ├── config                  # Configuração do sequelize
 ├── sequelize               # Modelos e migrações do sequelize
 ├── src                     # Pasta Raiz
@@ -28,9 +28,9 @@ Acesse um dos links a seguir para ler em outros idiomas: [English](README.md)
 
 src
 ├── researcher
-│ 	└── researcherController.js
-│	  └── researcherRouter.js
-│	  └── researcherTest.js
+│   └── researcherController.js
+│   └── researcherRouter.js
+│   └── researcherTest.js
 ├── study
 └── project
 ```
