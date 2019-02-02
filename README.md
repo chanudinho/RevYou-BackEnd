@@ -11,12 +11,12 @@ Read this in other languages: [Português](README.pt.md)
 ### A typical top-level directory layout
 
 .
-├── node_modules	    # All dependencies installed
-├── config                  # 
-├── sequelize               # 
+├── node_modules	    	# All dependencies installed
+├── config                  # Configuration of sequelize
+├── sequelize               # Models e migrations of sequelize
 ├── src                     # Source files
-├── .sequelizerc            # 
-├── index.js                #
+├── .sequelizerc            # Setting up the path of the sequelize folders
+├── index.js                # entry point of api 
 ├── package.json
 ├── README.pt.md 
 └── README.md
@@ -26,10 +26,22 @@ Read this in other languages: [Português](README.pt.md)
 ```
 ### Src directory layout
 src
+├── researcher
+│ 	└── researcherController.js
+│	└── researcherRouter.js
+│	└── researcherTest.js
 ├── study
-├── researcher  
 └── project
 ```
+
+### Tech
+
+RevYou-BackEnd uses a number of open source projects to work properly:
+
+* [NPM] - A package manager for the JavaScript programming language.
+* [Express] - Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications. 
+* [Sequelize] - Sequelize is a promise-based ORM for Node.js v4 and up. It supports the dialects PostgreSQL, MySQL, SQLite and MSSQL and features solid transaction support, relations, read replication and more.
+* [Jest] - A library for testing JavaScript code, and it's an open source project maintained by Facebook.
 
 ### Installation
 
@@ -51,7 +63,7 @@ In the project directory, you can run:
 #### `npm start`
 
 Runs the api in the development mode.<br>
-Open [http://localhost:5000](http://localhost:5000) to test on Postman.
+Open [http://localhost:5000](http://localhost:5000) to test on Postman or application of your choice.
 
 The application is updated automatically if you make edits.<br>
 You will also see any errors in the console.
