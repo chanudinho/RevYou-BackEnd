@@ -1,0 +1,19 @@
+language: node_js
+
+node_js:
+  - '8.9.4'
+cache:
+  yarn: true
+  directories:
+    - node_modules
+before_script:
+- bundle exec rake db:create
+- bundle exec rake db:migrate
+- bundle exec rake assets:precompile
+deploy:
+  provider: heroku
+  api_key:
+    secure: LcsIr/EvtCOlSlOPhDcvSKyKAYN2RJ9G/4/vuzTKPtxk1oEOt6CrXPAisur+wo5Ag6KFEW0C/zLu9Mg48rJeJbRvvuiAHCKXDG6lbNJy972CE0BshWdLs+xqkdhbClkENl3csp8l6N8HnXDWBJQ1UZ4Qq0teBSTECC33TdOgA6/Iag1DcNvdiYFo0+qAAhEp0MX7utEglSTPrT7yExWQLKKbq582vuGHzC0HLwU8UWuEK0S2F5uLACV66FmfLn0fZzFqm3GQGQ8uRmiCeWncl4CIwhCmN9EAP29wyjXm47lcfi9agcMXByw1HkCO0POHmiUkbAxV/LshrIF1goQzGCH2wzXnAUfX3ogYfDKG8qtL68phHKGdDD9Hfhr5JGixXWq8PJRe5olqn4akJicfFWa5MKTthMZ8vvBTdfw+6aVzZ6uphA2FxrZ+G96XlYZo1DObSlpwUh9hYKePPsDA2J5kv1W5qR57+k44dweFV97PpK9LSX4xRdR9RSZNo2Tf8MFgzrAIJFNvH1M2byGYjko1Q4BATsYY5UoJLIKDSjO2XG1AK5MNUKQx+awZOXkVvPYw1XhBlHmG4OVKfMexWpiF4bKtzFoGioRq/+eU4CaGqFnbK44LxHPurYXgROHdEJEZgYg3n2FSI66U+tH4p7iBz2j/Hr3k9OCM4eHvA+A=
+  app: revyou-backend
+  on:
+    repo: chanudinho / RevYou-BackEnd
