@@ -1,27 +1,23 @@
 'use strict';
-
 var uuid = require('uuid/v4');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Researcher', {
+    return queryInterface.createTable("Project", {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: uuid()
       },
-      name: {
-        allowNull: false,
+      title: {
         type: Sequelize.STRING
       },
-      email: {
-        allowNull: false,
-        type: Sequelize.STRING
+      description: {
+        type: Sequelize.TEXT
       },
-      password:{
-        allowNull: false,
-        type: Sequelize.STRING
+      objective: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
@@ -33,7 +29,8 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Researcher');
+
+  down: (queryInterface) => {
+    return queryInterface.dropTable("Project");
   }
 };

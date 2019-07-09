@@ -9,6 +9,9 @@ const researcherRouter = () => {
     .get(researcherController.getResearcher)
     .put(researcherController.updateResearcher)
     .delete(researcherController.deleteResearcher);
+    
+    router.route('/myprojects/:email')
+    .get(researcherController.getProjectsResearcher);
 
     return router;
 }

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {
@@ -19,11 +19,13 @@
   "homepage": "https://github.com/chanudinho/RevYou-BackEnd#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "nodemon": "^1.18.9",
     "pg": "^7.7.1",
     "sequelize": "^4.42.0",
-    "swagger-ui-express": "^4.0.2"
+    "swagger-ui-express": "^4.0.2",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "sequelize-cli": "^5.4.0"

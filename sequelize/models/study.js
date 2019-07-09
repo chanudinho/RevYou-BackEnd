@@ -1,6 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Study = sequelize.define('Study', {
+    id: {type: DataTypes.STRING(50), primaryKey: true},
     title: DataTypes.STRING,
     authors: DataTypes.STRING,
     citekey: DataTypes.STRING,
