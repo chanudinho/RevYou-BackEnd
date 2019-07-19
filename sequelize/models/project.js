@@ -14,6 +14,14 @@ module.exports = (sequelize, DataTypes) => {
             through: 'ProjectsResearchers',
             onDelete: "cascade"
         });
+        models.Project.hasMany(models.Invitation, {
+            as: 'Inviteds',
+            foreignKey: {
+              name: 'ProjectId',
+              allowNull: false
+            }, 
+            foreignKeyConstraint:true
+        });
     }
 
     return Project;

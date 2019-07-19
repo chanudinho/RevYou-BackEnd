@@ -1,17 +1,18 @@
 const router = require('express').Router();
 const projectController = require('../project/projectController');
 
-const researcherRouter = () => {
+const projectRouter = () => {
     router.route('/')
     .post(projectController.createProject);
 
     router.route('/inviteresearcher')
     .post(projectController.inviteResearcher);
-    /*router.route('/:email')
-    .get(researcherController.getResearcher)*/
+    
+    router.route('/inviteds/:ProjectId')
+    .get(projectController.getInvited);
 
     return router;
 }
 
 
-module.exports = researcherRouter;
+module.exports = projectRouter;

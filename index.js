@@ -7,6 +7,7 @@ const swaggerUi = require('swagger-ui-express');
 const researcherRouter = require('./src/researcher/researcherRouter');
 const studyRouter = require('./src/study/studyRouter');
 const projectRouter = require('./src/project/projectRouter');
+const invitationRouter = require('./src/invitation/invitationRouter');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.options("/*", function(req, res, next){
 app.use('/researcher', researcherRouter());
 app.use('/study', studyRouter());
 app.use('/project', projectRouter());
+app.use('/invitation', invitationRouter());
 
 const swaggerDocument = require('./docs/documentation.json');
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

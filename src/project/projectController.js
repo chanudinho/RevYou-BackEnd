@@ -14,10 +14,10 @@ const createProject = (req, res) => {
             }).then( () => {
                 res.status(201).json('criado');
             }).catch( () => {
-                res.status(500).json(' Coordinator id invalido');
+                res.status(500).json('Coordinator id invalido');
             });
         }else{
-            res.status(404).json(' Coordinator id is null');
+            res.status(404).json('Coordinator id is null');
         }
     }catch (err){
         return res.status(500).json({message: 'error interno'}, err);
@@ -38,7 +38,23 @@ const inviteResearcher = async(req, res) => {
     }
 }
 
+const getInvited = async (req, res) => {
+    try{
+        const {ProjectId} = req.params;
+        const project = await Project.findByPk(ProjectId);
+        if (!!project){
+           const inviteds = await project.getInviteds({attributes:['id' ,'email', 'situation']});
+           return res.status(200).send(inviteds);
+        }else{
+            return res.status(404).json('project inexistente');
+        }
+    }catch(err){
+        return res.status(500).json({message: 'error interno'});
+    }
+}
+
 module.exports = {
     createProject,
-    inviteResearcher
+    inviteResearcher,
+    getInvited
 }

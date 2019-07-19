@@ -83,7 +83,7 @@ const getProjectsResearcher = async (req, res) => {
         const researcher = await Researcher.find({where:{email:email}});
         const projects = await researcher.getProjects({attributes: ['CoordinatorId', 'title']
         }).then(async (res) => {
-            const projects2 = await researcher.getCoordinator({attributes: ['CoordinatorId', 'title']});
+            const projects2 = await researcher.getCoordinator({attributes: ['id', 'CoordinatorId', 'title']});
             res = await res.concat(projects2);
             return res;
         });
