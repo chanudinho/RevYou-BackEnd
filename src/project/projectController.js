@@ -20,7 +20,7 @@ const createProject = (req, res) => {
             res.status(404).json('Coordinator id is null');
         }
     }catch (err){
-        return res.status(500).json({message: 'error interno'}, err);
+        return res.status(500).json({message: 'error interno', err});
     }
 }
 
@@ -34,7 +34,7 @@ const inviteResearcher = async(req, res) => {
             return res.status(200).json({message: 'sucesso'});
         }
     }catch(err){
-        return res.status(500).json({message: 'error interno'}, err);
+        return res.status(500).json({message: 'error interno', err });
     }
 }
 
@@ -49,12 +49,27 @@ const getInvited = async (req, res) => {
             return res.status(404).json('project inexistente');
         }
     }catch(err){
-        return res.status(500).json({message: 'error interno'});
+        return res.status(500).json({message: 'error interno', err});
+    }
+}
+
+const deleteProject = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const deletado = await Project.destroy({where: {id}});
+        if(!!deletado){
+            return res.status(200).json({message: "deletado com sucesso"});
+        }else{
+            return res.status(404).json({message: 'projeto inexistete'});
+        }
+    }catch(err){
+        return res.status(500).json({message: 'error interno' , err});
     }
 }
 
 module.exports = {
     createProject,
     inviteResearcher,
-    getInvited
+    getInvited,
+    deleteProject
 }

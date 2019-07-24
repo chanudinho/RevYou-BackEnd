@@ -5,6 +5,9 @@ const projectRouter = () => {
     router.route('/')
     .post(projectController.createProject);
 
+    router.route('/:id')
+    .delete(projectController.deleteProject);
+
     router.route('/inviteresearcher')
     .post(projectController.inviteResearcher);
     

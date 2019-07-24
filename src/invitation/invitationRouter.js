@@ -5,6 +5,9 @@ const invitationRouter = () => {
     router.route('/')
     .post(invitationController.createInvitation);
 
+    router.route('/:id')
+    .delete(invitationController.deleteInvitation);
+
     return router;
 }
 
