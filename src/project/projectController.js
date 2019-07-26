@@ -67,9 +67,32 @@ const deleteProject = async (req, res) => {
     }
 }
 
+const updateProject = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const {title, description, objective, CoordinatorId} = req.body
+        const result = await Project.update({
+            title,
+            description,
+            objective,
+            CoordinatorId
+        },
+        {where: {id}});
+        console.log(result);
+        if(!!result){
+            return res.status(200).json({message: "projeto atulizado"});
+        }else{
+            return res.status(404).json({message: 'projeto inexistete'});
+        }
+    }catch(err){
+        return res.status(500).json({message: 'error interno' , err});
+    }
+}
+
 module.exports = {
     createProject,
+    deleteProject,
+    updateProject,
     inviteResearcher,
-    getInvited,
-    deleteProject
+    getInvited
 }
