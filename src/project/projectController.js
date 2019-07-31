@@ -1,4 +1,4 @@
-const {Project, Researcher} = require('../../sequelize/models/index');
+const {Project, Researcher, Invitation} = require('../../sequelize/models/index');
 const uuid = require("uuid/v4");
 
 const createProject = (req, res) => {
@@ -89,10 +89,47 @@ const updateProject = async (req, res) => {
     }
 }
 
+const getProject = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const result = await Project.findByPk(id);
+        if(!!result){
+            return res.status(200).json(result);
+        }else{
+            return res.status(404).json({message: 'projeto inexistete'});
+        }
+    }catch(err){
+        return res.status(500).json({message: 'error interno' , err});
+    }
+}
+
+const getPendingInvitations = async (req, res) =>{
+    try{
+        const {email} = req.params;
+        const result = await Project.findAll({include: [{
+            model: Invitation, 
+            association: "Inviteds", 
+            where: {email, situation:'pending'},
+            attributes:['id']
+        }], 
+        attributes:['title']
+    });
+        if(result !== []){
+            res.status(200).json(result);
+        }else{
+            res.status(404).json({message: 'não existe nenhum convite pedente'});
+        }
+    }catch(err){
+        res.status(500).json({message: 'error interno', err});
+    }
+}
+
 module.exports = {
     createProject,
+    getProject,
     deleteProject,
     updateProject,
     inviteResearcher,
-    getInvited
+    getInvited,
+    getPendingInvitations
 }

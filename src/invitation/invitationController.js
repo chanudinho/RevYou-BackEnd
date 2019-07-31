@@ -55,11 +55,27 @@ const createInvitation = async (req, res) => {
 const deleteInvitation = async (req, res) => {
     try{
         const {id} = req.params;
-        const deletado = await Invitation.destroy({where: {id}});
-        if(!!deletado){
+        const result = await Invitation.destroy({where: {id}});
+        if(!!result){
             return res.status(200).json({message: "deletado com sucesso"});
         }else{
             return res.status(404).json({message: 'projeto inexistete'});
+        }
+    }catch(error){
+        res.status(500).json({message: 'error interno', error});
+    }
+}
+
+const updateSituation = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const {situation} = req.body;
+        const result = await Invitation.update({situation}, {where: {id}});
+        console.log(result);
+        if(!!result){
+            return res.status(200).json({message: "convite atulizado"});
+        }else{
+            return res.status(404).json({message: 'convite inexistete'});
         }
     }catch(error){
         res.status(500).json({message: 'error interno', error});
@@ -76,5 +92,6 @@ const transporter = nodemailer.createTransport({
 
 module.exports = {
     createInvitation,
-    deleteInvitation
+    deleteInvitation,
+    updateSituation
 }

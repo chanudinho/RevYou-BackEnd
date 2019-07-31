@@ -6,6 +6,7 @@ const invitationRouter = () => {
     .post(invitationController.createInvitation);
 
     router.route('/:id')
+    .put(invitationController.updateSituation)
     .delete(invitationController.deleteInvitation);
 
     return router;

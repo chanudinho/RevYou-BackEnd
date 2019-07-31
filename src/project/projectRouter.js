@@ -6,8 +6,12 @@ const projectRouter = () => {
     .post(projectController.createProject);
 
     router.route('/:id')
+    .get(projectController.getProject)
     .put(projectController.updateProject)
     .delete(projectController.deleteProject);
+
+    router.route('invites/:email')
+    .get(projectController.getPendingInvitations);
 
     router.route('/inviteresearcher')
     .post(projectController.inviteResearcher);
