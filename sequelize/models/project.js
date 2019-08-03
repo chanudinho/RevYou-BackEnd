@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
       id: {type: DataTypes.STRING(50), primaryKey: true},
       title: DataTypes.STRING,
       description: DataTypes.TEXT,
-      objective: DataTypes.TEXT
+      objective: DataTypes.TEXT,
+      reviewType: DataTypes.ENUM('Systematic Review', 'Systematic Mapping', 'Not Systematic')
     }, {freezeTableName: true, schema: 'public'});
     
     Project.associate = function(models){
@@ -22,6 +23,41 @@ module.exports = (sequelize, DataTypes) => {
             }, 
             foreignKeyConstraint:true
         });
+        models.Project.hasMany(models.SecondaryQuestion, {
+          as: 'SecondaryQuestion',
+          foreignKey: {
+            name: 'ProjectId',
+            allowNull: false
+          }, 
+          foreignKeyConstraint:true
+      });
+      models.Project.hasMany(models.SearchKeyword, {
+        as: 'SearchKeyword',
+        foreignKey: {
+          name: 'ProjectId',
+          allowNull: false
+        }, 
+        foreignKeyConstraint:true
+      });
+      models.Project.hasMany(models.SelectionCriteria, {
+        as: 'SelectionCriteria',
+        foreignKey: {
+          name: 'ProjectId',
+          allowNull: false
+        }, 
+        foreignKeyConstraint:true
+      });
+      //* - *
+      models.Project.belongsToMany(models.Language, {
+        as: 'Languagues', 
+        through: 'ProjectsLanguages',
+        onDelete: "cascade"
+      });
+      models.Project.belongsToMany(models.SearchEngine, {
+        as: 'SearchEngines', 
+        through: 'ProjectsSearchEngines',
+        onDelete: "cascade"
+      });
     }
 
     return Project;

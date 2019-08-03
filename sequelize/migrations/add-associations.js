@@ -30,6 +30,81 @@ module.exports = {
           }
         )
       })
+      .then(() => {
+        return queryInterface.addColumn(
+          "SecondaryQuestion", // name of Source model
+          "ProjectId", // name of the key we're adding
+          {
+            type: Sequelize.UUID,
+            references: {
+              model: "Project", // name of Target model
+              key: "id" // key in Target model that we're referencing
+            },
+            onUpdate: "CASCADE",
+            onDelete: "SET NULL"
+          }
+        )
+      })
+      .then(() => {
+        return queryInterface.addColumn(
+          "SearchKeyword", // name of Source model
+          "ProjectId", // name of the key we're adding
+          {
+            type: Sequelize.UUID,
+            references: {
+              model: "Project", // name of Target model
+              key: "id" // key in Target model that we're referencing
+            },
+            onUpdate: "CASCADE",
+            onDelete: "SET NULL"
+          }
+        )
+      })
+      .then(() => {
+        return queryInterface.addColumn(
+          "SelectionCriteria", // name of Source model
+          "ProjectId", // name of the key we're adding
+          {
+            type: Sequelize.UUID,
+            references: {
+              model: "Project", // name of Target model
+              key: "id" // key in Target model that we're referencing
+            },
+            onUpdate: "CASCADE",
+            onDelete: "SET NULL"
+          }
+        )
+      })
+      .then(() => {
+        return queryInterface.addColumn(
+          "StandardQuery", // name of Source model
+          "ProjectId", // name of the key we're adding
+          {
+            type: Sequelize.UUID,
+            references: {
+              model: "Project", // name of Target model
+              key: "id" // key in Target model that we're referencing
+            },
+            onUpdate: "CASCADE",
+            onDelete: "SET NULL"
+          }
+        )
+      })
+      .then(() => {
+        return queryInterface.addColumn(
+          "MainQuestion", // name of Source model
+          "ProjectId", // name of the key we're adding
+          {
+            type: Sequelize.UUID,
+            references: {
+              model: "Project", // name of Target model
+              key: "id" // key in Target model that we're referencing
+            },
+            onUpdate: "CASCADE",
+            onDelete: "SET NULL"
+          }
+        )
+      })
     },
 
     down: (queryInterface, Sequelize) => {
@@ -41,6 +116,42 @@ module.exports = {
         return queryInterface.removeColumn(
           "Project", // name of Source model
           "CoordinatorId" // key we want to remove
+        )
+      })
+      .then(() => {
+        return queryInterface.removeColumn(
+          "SecondaryQuestion", // name of Source model
+          "ProjectId" // key we want to remove
+        )
+      })
+      .then(() => {
+        return queryInterface.removeColumn(
+          "SearchKeyword", // name of Source model
+          "ProjectId" // key we want to remove
+        )
+      })
+      .then(() => {
+        return queryInterface.removeColumn(
+          "SelectionCriteria", // name of Source model
+          "ProjectId" // key we want to remove
+        )
+      })
+      .then(() => {
+        return queryInterface.removeColumn(
+          "SelectionCriteria", // name of Source model
+          "ProjectId" // key we want to remove
+        )
+      })
+      .then(() => {
+        return queryInterface.removeColumn(
+          "MainQuestion", // name of Source model
+          "ProjectId" // key we want to remove
+        )
+      })
+      .then(() => {
+        return queryInterface.removeColumn(
+          "StandardQuery", // name of Source model
+          "ProjectId" // key we want to remove
         )
       })
     }

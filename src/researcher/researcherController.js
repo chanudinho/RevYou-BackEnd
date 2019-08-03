@@ -44,12 +44,12 @@ const getResearcher = async (req, res) => {
 
 const updateResearcher = async (req, res) => {
     try{
-        const {email} = req.params;
-        const {name, newemail, password} = req.body;
+        const {id} = req.params;
+        const {name, email, password} = req.body;
         const researcher = await Researcher.find({where:{email:email}});
         console.log(researcher);
         if (researcher){
-            await Researcher.update({name : name, email: newemail, password: password},{where: {email: email}});
+            await Researcher.update({name , email, password},{where: {id}});
             res.status(201).send('researcher alterado com sucesso');
         }
         else{

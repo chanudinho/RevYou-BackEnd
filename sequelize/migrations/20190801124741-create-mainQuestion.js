@@ -1,26 +1,36 @@
 'use strict';
+
 var uuid = require('uuid/v4');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Project", {
+    return queryInterface.createTable('MainQuestion', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: uuid()
       },
-      title: {
-        type: Sequelize.STRING
-      },
       description: {
         type: Sequelize.TEXT
       },
-      objective: {
+      population: {
         type: Sequelize.TEXT
       },
-      reviewType: {
-        type: Sequelize.ENUM('Systematic Review', 'Systematic Mapping', 'Not Systematic')
+      intervation:{
+        type: Sequelize.TEXT
+      },
+      control: {
+        type: Sequelize.TEXT
+      },
+      results: {
+        type: Sequelize.TEXT
+      },
+      context: {
+        type: Sequelize.TEXT
+      },
+      design: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
@@ -32,8 +42,7 @@ module.exports = {
       }
     });
   },
-
-  down: (queryInterface) => {
-    return queryInterface.dropTable("Project");
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('MainQuestion');
   }
 };
