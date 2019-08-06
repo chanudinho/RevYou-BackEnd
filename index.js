@@ -9,6 +9,9 @@ const researcherRouter = require('./src/researcher/researcherRouter');
 const studyRouter = require('./src/study/studyRouter');
 const projectRouter = require('./src/project/projectRouter');
 const invitationRouter = require('./src/invitation/invitationRouter');
+const mainQuestionRouter = require('./src/mainQuestion/mainQuestionRouter');
+const secondaryQuestionRouter = require('./src/secondaryQuestion/secondaryQuestionRouter');
+const standardQueryRouter = require('./src/standardQuery/standardQueryRouter');
 
 const app = express();
 
@@ -30,6 +33,9 @@ app.use('/researcher', researcherRouter());
 app.use('/study', studyRouter());
 app.use('/project', projectRouter());
 app.use('/invitation', invitationRouter());
+app.use('/mainQuestion', mainQuestionRouter());
+app.use('/secondaryQuestion', secondaryQuestionRouter());
+app.use('/standardQuery', standardQueryRouter());
 
 const swaggerDocument = require('./docs/documentation.json');
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
