@@ -12,6 +12,8 @@ const invitationRouter = require('./src/invitation/invitationRouter');
 const mainQuestionRouter = require('./src/mainQuestion/mainQuestionRouter');
 const secondaryQuestionRouter = require('./src/secondaryQuestion/secondaryQuestionRouter');
 const standardQueryRouter = require('./src/standardQuery/standardQueryRouter');
+const searchKeywordRouter = require('./src/searchKeyword/searchKeywordRouter');
+const selectionCriteriaRouter = require('./src/selectionCriteria/selectionCriteriaRouter');
 
 const app = express();
 
@@ -36,6 +38,8 @@ app.use('/invitation', invitationRouter());
 app.use('/mainQuestion', mainQuestionRouter());
 app.use('/secondaryQuestion', secondaryQuestionRouter());
 app.use('/standardQuery', standardQueryRouter());
+app.use('/searchKeyword', searchKeywordRouter());
+app.use('/selectionCriteria', selectionCriteriaRouter());
 
 const swaggerDocument = require('./docs/documentation.json');
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
