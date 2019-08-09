@@ -10,7 +10,7 @@ const projectRouter = () => {
     .put(projectController.updateProject)
     .delete(projectController.deleteProject);
 
-    router.route('invites/:email')
+    router.route('/invites/:email')
     .get(projectController.getPendingInvitations);
 
     router.route('/inviteresearcher')
