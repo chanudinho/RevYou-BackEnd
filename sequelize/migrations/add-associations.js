@@ -105,6 +105,21 @@ module.exports = {
           }
         )
       })
+      .then(() => {
+        return queryInterface.addColumn(
+          "Study", // name of Source model
+          "ProjectId", // name of the key we're adding
+          {
+            type: Sequelize.UUID,
+            references: {
+              model: "Project", // name of Target model
+              key: "id" // key in Target model that we're referencing
+            },
+            onUpdate: "CASCADE",
+            onDelete: "SET NULL"
+          }
+        )
+      })
     },
 
     down: (queryInterface, Sequelize) => {
@@ -151,6 +166,12 @@ module.exports = {
       .then(() => {
         return queryInterface.removeColumn(
           "StandardQuery", // name of Source model
+          "ProjectId" // key we want to remove
+        )
+      })
+      .then(() => {
+        return queryInterface.removeColumn(
+          "Study", // name of Source model
           "ProjectId" // key we want to remove
         )
       })

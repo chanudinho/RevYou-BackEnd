@@ -1,10 +1,12 @@
 const router = require('express').Router();
+const multer = require('multer');
 const studyController = require('./studyController');
+const upload = multer({ dest: 'temp/'});
 
 const studyRouter = () =>{
 
     router.route('/')
-    .post(studyController.createStudy);
+    .post(upload.any(), studyController.addFile);
     
     return router;
 }

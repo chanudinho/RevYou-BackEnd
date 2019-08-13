@@ -27,18 +27,17 @@ const createResearcher= (req, res) => {
 
 const getResearcher = async (req, res) => {
     try{
-        
         const {email} = req.params;
-        const researcher = await Researcher.find({where: {email: email}});
+        const researcher = await Researcher.findOne({where: {email: email}});
         
-        console.log(researcher);
+        console.log("researcher");
         if(researcher){
             return res.status(202).json(researcher);
         }else{
             return res.status(404).json({ message: 'usuario inexistente'});
         }    
     }catch(err){
-        return res.status(500).json({ message: 'error'}, err);
+        return res.status(500).json({ message: 'error', err});
     }
 }
 
@@ -80,7 +79,7 @@ const deleteResearcher = async (req, res) => {
 const getProjectsResearcher = async (req, res) => {
     try{
         const {email} = req.params;
-        const researcher = await Researcher.find({where:{email:email}});
+        const researcher = await Researcher.findOne({where:{email:email}});
         const projects = await researcher.getProjects({attributes: ['CoordinatorId', 'title']
         }).then(async (res) => {
             const projects2 = await researcher.getCoordinator({attributes: ['id', 'CoordinatorId', 'title']});
@@ -89,7 +88,7 @@ const getProjectsResearcher = async (req, res) => {
         });
         return res.status(200).send(projects);
     }catch (err) {
-        return res.status(500).json({message: 'error interno'}, err);
+        return res.status(500).json({message: 'error interno', err});
     }
 }
 

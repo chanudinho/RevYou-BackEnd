@@ -47,6 +47,14 @@ module.exports = (sequelize, DataTypes) => {
         }, 
         foreignKeyConstraint:true
       });
+      models.Project.hasMany(models.Study, {
+        as: 'Study',
+        foreignKey: {
+          name: 'ProjectId',
+          allowNull: false
+        }, 
+        foreignKeyConstraint:true
+      });
       //* - *
       models.Project.belongsToMany(models.Language, {
         as: 'Languagues', 

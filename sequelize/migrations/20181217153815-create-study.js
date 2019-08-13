@@ -12,16 +12,19 @@ module.exports = {
         defaultValue: uuid()
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       authors: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       citekey:{
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
+      },
+      abstract:{
+        type: Sequelize.TEXT
       },
       keywords: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       venue: {
         type: Sequelize.STRING
@@ -43,6 +46,12 @@ module.exports = {
       },
       doi: {
         type: Sequelize.STRING
+      },
+      generalStatus: {
+        type: Sequelize.ENUM('Unclassified', 'Duplicated', 'Included', 'Excluded')
+      },
+      venueType: {
+        type: Sequelize.ENUM('Journal', 'Conferecence Pronceendings', 'Technical Report', 'Thesis', 'Book')
       },
       createdAt: {
         allowNull: false,
