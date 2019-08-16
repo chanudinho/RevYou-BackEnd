@@ -31,9 +31,10 @@ const getStudies = async (req, res) => {
     }
 }
 
-const getStudy = async (req, res) => { //para amanha
+const getStudy = async (req, res) => {
     try{
-        const {id} = req.body;
+        const {id} = req.params;
+        const result = await Study.findByPk(id);
         return res.status(200).json(result)
     }catch(err){
         return res.status(500).json({message: 'error arquivo', err});
