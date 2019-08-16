@@ -12,12 +12,12 @@ const createProject = (req, res) => {
                 objective,
                 CoordinatorId
             }).then( () => {
-                res.status(201).json('criado');
+                return res.status(201).json('criado');
             }).catch( () => {
-                res.status(500).json('Coordinator id invalido');
+                return res.status(500).json('Coordinator id invalido');
             });
         }else{
-            res.status(404).json('Coordinator id is null');
+            return res.status(404).json('Coordinator id is null');
         }
     }catch (err){
         return res.status(500).json({message: 'error interno', err});
@@ -115,12 +115,12 @@ const getPendingInvitations = async (req, res) =>{
         attributes:['title']
     });
         if(result !== []){
-            res.status(200).json(result);
+            return res.status(200).json(result);
         }else{
-            res.status(404).json({message: 'não existe nenhum convite pedente'});
+            return res.status(404).json({message: 'não existe nenhum convite pedente'});
         }
     }catch(err){
-        res.status(500).json({message: 'error interno', err});
+        return res.status(500).json({message: 'error interno', err});
     }
 }
 

@@ -43,12 +43,12 @@ const createInvitation = async (req, res) => {
                     }
                 });*/
             }
-            res.status(201).json('criado');
+            return res.status(201).json('criado');
         }).catch( () => {
-            res.status(500).json('Project id invalido');
+            return res.status(500).json('Project id invalido');
         });
     }catch(err){
-        res.status(500).json({message: 'error interno'});
+        return res.status(500).json({message: 'error interno'});
     } 
 }
 
@@ -62,7 +62,7 @@ const deleteInvitation = async (req, res) => {
             return res.status(404).json({message: 'projeto inexistete'});
         }
     }catch(error){
-        res.status(500).json({message: 'error interno', error});
+        return res.status(500).json({message: 'error interno', error});
     }
 }
 
@@ -78,7 +78,7 @@ const updateSituation = async (req, res) => {
             return res.status(404).json({message: 'convite inexistete'});
         }
     }catch(error){
-        res.status(500).json({message: 'error interno', error});
+        return res.status(500).json({message: 'error interno', error});
     }
 }
 

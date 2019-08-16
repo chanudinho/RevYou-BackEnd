@@ -17,22 +17,42 @@ const createStudy = (req, res) => {
             return res.status(401).json('venue invalido');
         }
     }catch(err){
-        res.status(500).send('error');
+        return res.status(500).send('error');
     }
 }
 
-const findStudy = (req, res) => {
-    res.json('ta fazendo nada');
+const getStudies = async (req, res) => {
+    try{
+        const {ProjectId} = req.params;
+        const result = await Study.findAll({where: {ProjectId}, attributes:['id','title','authors','generalStatus','year']});
+        return res.status(200).json(result)
+    }catch(err){
+        return res.status(500).json({message: 'error arquivo', err});
+    }
 }
 
-const addFile = async (req, res) =>{
+const getStudy = async (req, res) => { //para amanha
+    try{
+        const {id} = req.body;
+        return res.status(200).json(result)
+    }catch(err){
+        return res.status(500).json({message: 'error arquivo', err});
+    }
+}
+
+const importStudies = async (req, res) =>{
     try{
         const file = req.files[0].path;
-        const {ProjectId} = req.body;
+        const {ProjectId} = req.params;
         fs.renameSync(file, 'temp/base.bib')
         const document = fs.readFileSync('temp/base.bib','utf8');
         const result = document.split("@");
         const at = "@"
+        
+        if(ProjectId == 'undefined') {
+            return res.status(500).json({message: 'ProjectId não existe'});
+        }
+
         await result.forEach((res,index) => {
             let title, authors, citekey, keywords, venue, year, pages, volume, url, issn, doi, generalStatus, venueType; 
             if(index > 0){
@@ -58,15 +78,16 @@ const addFile = async (req, res) =>{
             }
         })
         
-        res.status(201).json({message: 'Criado'});
+        return res.status(201).json({message: 'Criado'});
 
     }catch(err){
-        res.status(500).json({message: 'error arquivo', err});
+        return res.status(500).json({message: 'error arquivo', err});
     }
 }
 
 module.exports = {
     createStudy,
-    findStudy,
-    addFile
+    getStudy,
+    getStudies,
+    importStudies
 }

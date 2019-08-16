@@ -52,11 +52,11 @@ const updateResearcher = async (req, res) => {
             res.status(201).send('researcher alterado com sucesso');
         }
         else{
-            res.status(404).send('researcher não existe');
+            return res.status(404).send('researcher não existe');
         }  
 
     }catch(err){
-        res.status(500).send(err);
+        return res.status(500).send(err);
     }
 }
 

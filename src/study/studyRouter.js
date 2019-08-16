@@ -5,8 +5,12 @@ const upload = multer({ dest: 'temp/'});
 
 const studyRouter = () =>{
 
-    router.route('/')
-    .post(upload.any(), studyController.addFile);
+    router.route('/:ProjectId')
+    .get(studyController.getStudies)
+    .post(upload.any(), studyController.importStudies);
+
+    router.route('/specificStudy/:id')
+    .get(studyController.getStudy)
     
     return router;
 }
