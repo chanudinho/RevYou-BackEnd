@@ -1,6 +1,7 @@
 const {Study} = require('../../sequelize/models/index');
 const fs = require('fs');
 const uuid = require("uuid/v4");
+const stringSimilarity = require('string-similarity');
 const {parseBibFile, normalizeFieldValue} = require('bibtex');
 
 const createStudy = (req, res) => {
@@ -86,9 +87,60 @@ const importStudies = async (req, res) =>{
     }
 }
 
+const getDuplicateStudy = async (req, res) => {
+    try{
+        const {ProjectId} = req.params;
+        const dataToCompare = await Study.findAll({where : {ProjectId, generalStatus: 'Unclassified'}, attributes: ['id','title','authors','generalStatus','year']});
+        let dataFinal = [];
+        let notCompare = [];
+        let table = 2;
+
+        await dataToCompare.forEach((data, index) => {
+            let firstTime = 0;
+            for(let i = index+1; i<dataToCompare.length; i++){
+                if(notCompare.indexOf(i) === -1 
+                && notCompare.indexOf(index) === -1 
+                && stringSimilarity.compareTwoStrings(data.title.toLowerCase(), dataToCompare[i].title.toLowerCase()) >= 0.8)
+                {
+                    if(firstTime === 0){
+                        dataFinal.push(data);
+                        firstTime = 1;
+                        
+                    }
+                    notCompare.push(i);
+                    dataFinal.push(dataToCompare[i]);
+                }
+            }
+            if(firstTime){
+                dataFinal.push(table);
+                table = table === 2 ? 1 : 2;
+            }
+        })
+        return res.status(201).json(dataFinal);
+    }catch(err){
+        return res.status(500).json({message: 'error', err});
+    }
+}
+
+const updateDuplicateStudy = async (req, res) => {
+    try {
+        const {ids} = req.body;
+        await ids.forEach(async id => {
+            await Study.update({generalStatus: 'Duplicated'},
+            {where: {id}});
+        })
+        return res.status(200).json({message: 'ok'})
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({message: 'error', err});
+    }
+}
+
 module.exports = {
     createStudy,
     getStudy,
     getStudies,
-    importStudies
+    importStudies,
+    getDuplicateStudy,
+    updateDuplicateStudy
 }
