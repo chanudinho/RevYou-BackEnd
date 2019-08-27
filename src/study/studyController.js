@@ -90,7 +90,7 @@ const importStudies = async (req, res) =>{
 const getDuplicateStudy = async (req, res) => {
     try{
         const {ProjectId} = req.params;
-        const dataToCompare = await Study.findAll({where : {ProjectId, generalStatus: 'Unclassified'}, attributes: ['id','title','authors','generalStatus','year']});
+        const dataToCompare = await Study.findAll({where : {ProjectId, generalStatus: 'Unclassified'}, attributes: ['id','title','authors','generalStatus','year','abstract']});
         let dataFinal = [];
         let notCompare = [];
         let table = 2;
@@ -136,11 +136,36 @@ const updateDuplicateStudy = async (req, res) => {
     }
 }
 
+const getSimilarity = async (req, res) => {
+    try{
+        const {ProjectId, id} = req.query;
+        console.log('projectid', ProjectId)
+        console.log('id', id)
+        const studyToCompare = await Study.findByPk(id);
+        const allStudy = await Study.findAll({where : {ProjectId}, attributes: ['id','title','authors','generalStatus','year']});
+        let dataFinal = [];
+
+        await allStudy.forEach((data) => {
+            if(data.id !== id)
+            {
+                let similarity = (stringSimilarity.compareTwoStrings(data.title.toLowerCase(), studyToCompare.title.toLowerCase()) * 100)
+                similarity = parseFloat(similarity.toFixed(2))
+                data.dataValues.similarity = similarity;
+                dataFinal.push(data);
+            } 
+        })
+        return res.status(201).json(dataFinal);
+    }catch(err){
+        return res.status(500).json({message: 'error', err});
+    }
+}
+
 module.exports = {
     createStudy,
     getStudy,
     getStudies,
     importStudies,
     getDuplicateStudy,
-    updateDuplicateStudy
+    updateDuplicateStudy,
+    getSimilarity
 }

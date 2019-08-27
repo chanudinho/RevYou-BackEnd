@@ -6,6 +6,7 @@ const upload = multer({ dest: 'temp/'});
 const studyRouter = () =>{
     
     router.route('/')
+    .get(studyController.getSimilarity)
     .put(studyController.updateDuplicateStudy);
 
     router.route('/:ProjectId')
