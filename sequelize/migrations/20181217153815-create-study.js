@@ -47,6 +47,9 @@ module.exports = {
       doi: {
         type: Sequelize.STRING
       },
+      base: {
+        type: Sequelize.STRING
+      },
       generalStatus: {
         type: Sequelize.ENUM('Unclassified', 'Duplicated', 'Included', 'Excluded')
       },

@@ -45,7 +45,7 @@ const updateResearcher = async (req, res) => {
     try{
         const {id} = req.params;
         const {name, email, password} = req.body;
-        const researcher = await Researcher.find({where:{email:email}});
+        const researcher = await Researcher.findOne({where:{email:email}});
         console.log(researcher);
         if (researcher){
             await Researcher.update({name , email, password},{where: {id}});
@@ -63,7 +63,7 @@ const updateResearcher = async (req, res) => {
 const deleteResearcher = async (req, res) => {
     try{
         const {email} = req.params;
-        const researcher = await Researcher.find({where: {email: email}});
+        const researcher = await Researcher.findOne({where: {email: email}});
         if(researcher){
             Researcher.destroy({where: {email: email}});
             return res.status(200).send('usuario deletado com sucesso');

@@ -46,6 +46,7 @@ const importStudies = async (req, res) =>{
     try{
         const file = req.files[0].path;
         const {ProjectId} = req.params;
+        const {base} = req.query;
         fs.renameSync(file, 'temp/base.bib')
         const document = fs.readFileSync('temp/base.bib','utf8');
         const result = document.split("@");
@@ -72,11 +73,11 @@ const importStudies = async (req, res) =>{
                 url = normalizeFieldValue(study.getEntry(id).getField("url"));
                 issn = normalizeFieldValue(study.getEntry(id).getField("isbn")) || normalizeFieldValue(study.getEntry(id).getField("issn")) ;
                 doi = normalizeFieldValue(study.getEntry(id).getField("doi"));
-                generalStatus = "Unclassified"
+                generalStatus = "Unclassified";
                 abstract = normalizeFieldValue(study.getEntry(id).getField("abstract"));
                 
                 Study.create({id: uuid(), title, authors, abstract, citekey, keywords, venue,
-                    year, pages, volume, url, issn, doi, generalStatus, venueType, ProjectId});
+                    year, pages, volume, url, issn, doi, base , generalStatus, venueType, ProjectId});
             }
         })
         

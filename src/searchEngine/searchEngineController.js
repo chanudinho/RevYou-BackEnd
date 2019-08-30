@@ -1,23 +1,17 @@
 const {SearchEngine, Project} = require('../../sequelize/models/index');
 const uuid = require("uuid/v4");
 
-const createSearchEngine = (req, res) => {
+const createSearchEngine = async (req, res) => {
     try {
-        const {name} = req.body; 
-        SearchEngine.findOrCreate({where: {name}, defaults: {
-            id: uuid(),
-            name
-        }})
-        .spread((mainQuestion, created) => {
-            mainQuestion.get({
-                plain: true
-            });
-            if(created === true){
-                return res.status(201).send('Search Engine cadastrada com sucesso');
-            }else{
-                return res.status(401).send('Search Engine ja cadastrado');
-            }
-        });
+        const {bases} = req.body;
+        const result = bases.map(async base => {
+            return await SearchEngine.findOrCreate({where: {name: base}, defaults: {
+                id: uuid(),
+                name: base
+            }})   
+        })
+        await Promise.all(result)
+        return res.status(201).send('Search Engine cadastrada com sucesso');
     } catch (err) {
         return res.status(500).json({message: 'error interno', err});
     }
@@ -25,10 +19,13 @@ const createSearchEngine = (req, res) => {
 
 const createProjectsSearchEngines = async (req, res) => {
     try {
-        const {name, ProjectId} = req.body
+        const {bases, ProjectId} = req.body
         const project = await Project.findByPk(ProjectId);
-        const searchEngine = await SearchEngine.findOne({where: {name}});
-        await project.addSearchEngines(searchEngine);
+        const result = bases.map(async base => {
+            const searchEngine = await SearchEngine.findOne({where: {name : base}});
+            return await project.addSearchEngines(searchEngine);
+        })
+        await Promise.all(result)
         return res.status(201).send('Search Engine associada com o projeto com sucesso');
     } catch (err) {
         return res.status(500).json({message: 'error interno' , err});
@@ -53,8 +50,24 @@ const getSearchEngines = async (req, res) => {
     }
 }
 
+const deleteProjectSearchEngines = async (req, res) => {
+    try {
+        const {ProjectId, bases} = req.query;
+        const project = await Project.findByPk(ProjectId);
+        const result = bases.map(async base => {
+            const searchEngine = await SearchEngine.findOne({where: {name: base}});
+            return await project.removeSearchEngines(searchEngine);
+        })
+        await Promise.all(result)
+        return res.status(200).json('deletado com sucesso');
+    } catch (err) {
+        return res.status(500).json({message: 'error interno', err});
+    }
+}
+
 module.exports = {
     createSearchEngine,
     createProjectsSearchEngines,
-    getSearchEngines
+    getSearchEngines,
+    deleteProjectSearchEngines
 }

@@ -9,6 +9,9 @@ const invitationRouter = () => {
     .put(invitationController.updateSituation)
     .delete(invitationController.deleteInvitation);
 
+    router.route('/teste/:ProjectId')
+    .get(invitationController.getInvitationAccept);
+
     return router;
 }
 

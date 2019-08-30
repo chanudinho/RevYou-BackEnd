@@ -27,7 +27,7 @@ const createProject = (req, res) => {
 const inviteResearcher = async(req, res) => {
     try{
         const {email, idProject} = req.body;
-        const researcher = await Researcher.find({where: {email: email}});
+        const researcher = await Researcher.findOne({where: {email: email}});
         if(!!researcher){
             const project = await Project.findByPk(idProject)
             project.addResearcher(researcher);

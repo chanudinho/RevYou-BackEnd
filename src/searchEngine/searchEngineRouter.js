@@ -3,13 +3,14 @@ const searchEngineController = require('./searchEngineController');
 
 const searchEngineRouter = () => {
     router.route('/')
-    .post(searchEngineController.createSearchEngine);
+    .post(searchEngineController.createSearchEngine)
+    .delete(searchEngineController.deleteProjectSearchEngines);
 
     router.route('/:ProjectId')
     .get(searchEngineController.getSearchEngines);
 
     router.route('/createAssociation')
-    .post(searchEngineController.createProjectsSearchEngines)
+    .post(searchEngineController.createProjectsSearchEngines);
 
     return router;
 }
