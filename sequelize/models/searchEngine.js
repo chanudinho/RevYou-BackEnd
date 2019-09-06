@@ -9,6 +9,14 @@ module.exports = (sequelize, DataTypes) => {
     models.SearchEngine.belongsToMany(models.Project, {
       through: 'ProjectsSearchEngines'
     });
+    models.SearchEngine.hasMany(models.AdaptedQuery, {
+      as: 'AdaptedQSearch',
+      foreignKey: {
+        name: 'SearchEngineId',
+        allowNull: false
+      }, 
+      foreignKeyConstraint:true
+    });
   }
 
   return SearchEngine;

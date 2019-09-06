@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     issn: DataTypes.STRING,
     doi: DataTypes.STRING,
     base: DataTypes.STRING,
+    search: DataTypes.INTEGER,
     generalStatus: DataTypes.ENUM('Unclassified', 'Duplicated', 'Included', 'Excluded'), 
     venueType: DataTypes.ENUM('Journal', 'Conferecence Pronceendings', 'Technical Report', 'Thesis', 'Book')
   }, {freezeTableName: true, schema: 'public'});

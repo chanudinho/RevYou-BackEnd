@@ -45,8 +45,7 @@ const getStudy = async (req, res) => {
 const importStudies = async (req, res) =>{
     try{
         const file = req.files[0].path;
-        const {ProjectId} = req.params;
-        const {base} = req.query;
+        const {ProjectId, base, search} = req.query;
         fs.renameSync(file, 'temp/base.bib')
         const document = fs.readFileSync('temp/base.bib','utf8');
         const result = document.split("@");
@@ -77,7 +76,7 @@ const importStudies = async (req, res) =>{
                 abstract = normalizeFieldValue(study.getEntry(id).getField("abstract"));
                 
                 Study.create({id: uuid(), title, authors, abstract, citekey, keywords, venue,
-                    year, pages, volume, url, issn, doi, base , generalStatus, venueType, ProjectId});
+                    year, pages, volume, url, issn, doi, base, search, generalStatus, venueType, ProjectId});
             }
         })
         

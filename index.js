@@ -16,6 +16,7 @@ const searchKeywordRouter = require('./src/searchKeyword/searchKeywordRouter');
 const selectionCriteriaRouter = require('./src/selectionCriteria/selectionCriteriaRouter');
 const languagesRouter = require('./src/language/languageRouter');
 const searchEngineRouter = require('./src/searchEngine/searchEngineRouter');
+const adaptedQueryRouter = require('./src/adaptedQuery/adaptedQueryRouter');
 
 const app = express();
 
@@ -42,8 +43,9 @@ app.use('/secondaryQuestion', secondaryQuestionRouter());
 app.use('/standardQuery', standardQueryRouter());
 app.use('/searchKeyword', searchKeywordRouter());
 app.use('/selectionCriteria', selectionCriteriaRouter());
-app.use('/language', languagesRouter())
-app.use('/searchEngine', searchEngineRouter())
+app.use('/language', languagesRouter());
+app.use('/searchEngine', searchEngineRouter());
+app.use('/adaptedQuery', adaptedQueryRouter());
 
 const swaggerDocument = require('./docs/documentation.json');
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

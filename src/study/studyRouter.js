@@ -7,11 +7,11 @@ const studyRouter = () =>{
     
     router.route('/')
     .get(studyController.getSimilarity)
-    .put(studyController.updateDuplicateStudy);
+    .put(studyController.updateDuplicateStudy)
+    .post(upload.any(), studyController.importStudies);
 
     router.route('/:ProjectId')
     .get(studyController.getStudies)
-    .post(upload.any(), studyController.importStudies);
 
     router.route('/specificStudy/:id')
     .get(studyController.getStudy)

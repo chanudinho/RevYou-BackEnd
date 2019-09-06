@@ -120,6 +120,36 @@ module.exports = {
           }
         )
       })
+      .then(() => {
+        return queryInterface.addColumn(
+          "AdaptedQuery", // name of Source model
+          "ProjectId", // name of the key we're adding
+          {
+            type: Sequelize.UUID,
+            references: {
+              model: "Project", // name of Target model
+              key: "id" // key in Target model that we're referencing
+            },
+            onUpdate: "CASCADE",
+            onDelete: "SET NULL"
+          }
+        )
+      })
+      .then(() => {
+        return queryInterface.addColumn(
+          "AdaptedQuery", // name of Source model
+          "SearchEngineId", // name of the key we're adding
+          {
+            type: Sequelize.UUID,
+            references: {
+              model: "SearchEngine", // name of Target model
+              key: "id" // key in Target model that we're referencing
+            },
+            onUpdate: "CASCADE",
+            onDelete: "SET NULL"
+          }
+        )
+      })
     },
 
     down: (queryInterface, Sequelize) => {
@@ -173,6 +203,18 @@ module.exports = {
         return queryInterface.removeColumn(
           "Study", // name of Source model
           "ProjectId" // key we want to remove
+        )
+      })
+      .then(() => {
+        return queryInterface.removeColumn(
+          "AdaptedQuery", // name of Source model
+          "ProjectId" // key we want to remove
+        )
+      })
+      .then(() => {
+        return queryInterface.removeColumn(
+          "AdaptedQuery", // name of Source model
+          "SearchEngineId" // key we want to remove
         )
       })
     }

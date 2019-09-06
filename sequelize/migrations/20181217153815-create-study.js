@@ -50,6 +50,9 @@ module.exports = {
       base: {
         type: Sequelize.STRING
       },
+      search:{
+        type: Sequelize.INTEGER
+      },
       generalStatus: {
         type: Sequelize.ENUM('Unclassified', 'Duplicated', 'Included', 'Excluded')
       },
