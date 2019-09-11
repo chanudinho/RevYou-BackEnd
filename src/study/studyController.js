@@ -5,18 +5,16 @@ const stringSimilarity = require('string-similarity');
 const {parseBibFile, normalizeFieldValue} = require('bibtex');
 
 const createStudy = (req, res) => {
-    const venueTypes = ['journal','conference proceedings','technical report','thesis','book'];
     try{
-        const {title, authors, citekey, keywords, venue, year, pages, volume, url, issn, doi} = req.body;
-        console.log(venue);
-        if(venueTypes.indexOf(venue) !== -1 || venue === undefined){
-            Study.create({title: title, authors: authors, citekey: citekey, keywords: keywords, venue : venue,
-                 year: year, pages: pages, volume: volume, url:url, issn:issn, doi:doi});
-            
-            res.status(201).json('criado');
-        }else{
-            return res.status(401).json('venue invalido');
-        }
+        const {ProjectId} = req.params
+        const {title, authors, citekey, keywords, venue, year, 
+            pages, volume, url, issn, doi, generalStatus, venueType, base} = req.body;
+        
+        Study.create({id: uuid(), title, authors, citekey, keywords, venue, year, 
+            pages, volume, url, issn, doi, generalStatus, venueType, ProjectId, base, search: 0});
+        
+        res.status(201).json('criado');
+
     }catch(err){
         return res.status(500).send('error');
     }
@@ -25,7 +23,13 @@ const createStudy = (req, res) => {
 const getStudies = async (req, res) => {
     try{
         const {ProjectId} = req.params;
-        const result = await Study.findAll({where: {ProjectId}, attributes:['id','title','authors','generalStatus','year']});
+        const {base} = req.query;
+        let result;
+        if(base){
+            result = await Study.findAll({where: {ProjectId, base}, attributes:['id','title','authors','generalStatus','year']});
+        }else{
+            result = await Study.findAll({where: {ProjectId}, attributes:['id','title','authors','generalStatus','year']});
+        }
         return res.status(200).json(result)
     }catch(err){
         return res.status(500).json({message: 'error arquivo', err});
@@ -160,6 +164,33 @@ const getSimilarity = async (req, res) => {
     }
 }
 
+const updateStudy = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const {title, authors, citekey, keywords, venue, year, pages, volume, url, issn, doi, generalStatus, venueType} = req.body
+        await Study.update({
+                title, 
+                authors, 
+                citekey, 
+                keywords, 
+                venue, 
+                year, 
+                pages, 
+                volume, 
+                url,
+                issn, 
+                doi, 
+                generalStatus, 
+                venueType
+            },
+            { where: { id }}
+        );
+        return res.status(200).json('sucesso');
+    } catch (err) {
+        return res.status(500).json({message: 'error', err});
+    }
+}
+
 module.exports = {
     createStudy,
     getStudy,
@@ -167,5 +198,6 @@ module.exports = {
     importStudies,
     getDuplicateStudy,
     updateDuplicateStudy,
-    getSimilarity
+    getSimilarity,
+    updateStudy
 }

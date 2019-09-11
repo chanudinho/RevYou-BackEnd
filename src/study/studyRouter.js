@@ -12,9 +12,11 @@ const studyRouter = () =>{
 
     router.route('/:ProjectId')
     .get(studyController.getStudies)
+    .post(studyController.createStudy)
 
     router.route('/specificStudy/:id')
     .get(studyController.getStudy)
+    .put(studyController.updateStudy)
 
     router.route('/duplicates/:ProjectId')
     .get(studyController.getDuplicateStudy)

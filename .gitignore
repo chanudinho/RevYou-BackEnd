@@ -61,4 +61,4 @@ typings/
 .next
 
 # .bib 
-.bib
+*.bib
