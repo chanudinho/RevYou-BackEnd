@@ -3,13 +3,14 @@ const uuid = require("uuid/v4");
 
 const createProject = (req, res) => {
     try{
-        const {title, description, objective, CoordinatorId } = req.body;
+        const {title, description, objective, CoordinatorId, reviewType } = req.body;
         if (!!CoordinatorId){
             Project.create({
                 id: uuid(),
                 title,
                 description,
                 objective,
+                reviewType,
                 CoordinatorId
             }).then( () => {
                 return res.status(201).json('criado');

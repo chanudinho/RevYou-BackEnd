@@ -3,6 +3,7 @@ const fs = require('fs');
 const uuid = require("uuid/v4");
 const stringSimilarity = require('string-similarity');
 const {parseBibFile, normalizeFieldValue} = require('bibtex');
+const Sequelize = require('sequelize');
 
 const createStudy = (req, res) => {
     try{
@@ -191,6 +192,23 @@ const updateStudy = async (req, res) => {
     }
 }
 
+const findStudies = async (req, res) => {
+    try {
+        console.log('aqui');
+        const Op = Sequelize.Op;
+        const {search, base, ProjectId} = req.query;
+        let result;
+        if(base) {
+            result = await Study.findAll({where: {ProjectId, base, title: { [Op.like]: `%${search}%` } }});
+        }else {
+            result = await Study.findAll({where: {ProjectId, title: { [Op.like]: `%${search}%` } }});
+        }
+        return res.status(200).json(result);
+    } catch (err) {
+        return res.status(500).json({message: 'error', err});
+    }
+}
+
 module.exports = {
     createStudy,
     getStudy,
@@ -199,5 +217,6 @@ module.exports = {
     getDuplicateStudy,
     updateDuplicateStudy,
     getSimilarity,
-    updateStudy
+    updateStudy,
+    findStudies
 }

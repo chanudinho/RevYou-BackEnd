@@ -9,17 +9,20 @@ const studyRouter = () =>{
     .get(studyController.getSimilarity)
     .put(studyController.updateDuplicateStudy)
     .post(upload.any(), studyController.importStudies);
-
-    router.route('/:ProjectId')
-    .get(studyController.getStudies)
-    .post(studyController.createStudy)
-
+ 
     router.route('/specificStudy/:id')
     .get(studyController.getStudy)
-    .put(studyController.updateStudy)
-
+    .put(studyController.updateStudy);
+    
     router.route('/duplicates/:ProjectId')
-    .get(studyController.getDuplicateStudy)
+    .get(studyController.getDuplicateStudy);
+    
+    router.route('/findStudies')
+    .get(studyController.findStudies);
+    
+    router.route('/:ProjectId')
+    .get(studyController.getStudies)
+    .post(studyController.createStudy);
     
     return router;
 }
