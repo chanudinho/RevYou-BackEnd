@@ -45,16 +45,23 @@ const updateResearcher = async (req, res) => {
     try{
         const {id} = req.params;
         const {name, email, password} = req.body;
-        const researcher = await Researcher.findOne({where:{email:email}});
-        console.log(researcher);
-        if (researcher){
-            await Researcher.update({name , email, password},{where: {id}});
-            res.status(201).send('researcher alterado com sucesso');
+        if (name){
+            await Researcher.update({name},{where: {id}});
+            return res.status(201).send('researcher alterado com sucesso');
         }
-        else{
-            return res.status(404).send('researcher não existe');
-        }  
-
+        else if(password) {
+            await Researcher.update({password},{where: {id}});
+            return res.status(201).send('researcher alterado com sucesso');
+        } else {
+            const researcher = await Researcher.findOne({where:{email}});
+            if(researcher){
+                return res.status(400).send('email ja cadastrado');
+            }else{
+                await Researcher.update({email},{where: {id}});
+                return res.status(201).send('researcher alterado com sucesso');
+            }
+        }
+        
     }catch(err){
         return res.status(500).send(err);
     }

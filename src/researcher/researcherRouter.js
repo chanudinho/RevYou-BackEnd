@@ -5,9 +5,11 @@ const researcherRouter = () => {
     router.route('/')
     .post(researcherController.createResearcher);
 
+    router.route('/updateResearcher/:id')
+    .put(researcherController.updateResearcher);
+
     router.route('/:email')
     .get(researcherController.getResearcher)
-    .put(researcherController.updateResearcher)
     .delete(researcherController.deleteResearcher);
     
     router.route('/myprojects/:email')

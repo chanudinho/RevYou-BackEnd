@@ -3,13 +3,12 @@ const secondaryQuestionController = require('./secondaryQuestionController');
 
 const secondaryQuestionRouter = () => {
     router.route('/')
-    .post(secondaryQuestionController.createSecondaryQuestion);
+    .post(secondaryQuestionController.createSecondaryQuestion)
+    .put(secondaryQuestionController.updateSecondaryQuestion)
+    .delete(secondaryQuestionController.deleteSecondaryQuestion);
 
     router.route('/:ProjectId')
     .get(secondaryQuestionController.getSecondaryQuestion);
-
-    router.route('/updateSecondaryQuestion/:id')
-    .put(secondaryQuestionController.updateSecondaryQuestion);
 
     return router;
 }
