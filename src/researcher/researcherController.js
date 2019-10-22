@@ -30,7 +30,6 @@ const getResearcher = async (req, res) => {
         const {email} = req.params;
         const researcher = await Researcher.findOne({where: {email: email}});
         
-        console.log("researcher");
         if(researcher){
             return res.status(202).json(researcher);
         }else{

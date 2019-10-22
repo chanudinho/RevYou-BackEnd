@@ -50,6 +50,6 @@ app.use('/adaptedQuery', adaptedQueryRouter());
 const swaggerDocument = require('./docs/documentation.json');
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.listen(5000, console.log("ta rodando"));
+app.listen(5000, console.log("all ready"));
 
 module.exports = app

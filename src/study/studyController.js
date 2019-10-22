@@ -136,7 +136,7 @@ const updateDuplicateStudy = async (req, res) => {
         })
         return res.status(200).json({message: 'ok'})
     } catch (err) {
-        console.log(err)
+        
         return res.status(500).json({message: 'error', err});
     }
 }
@@ -144,8 +144,6 @@ const updateDuplicateStudy = async (req, res) => {
 const getSimilarity = async (req, res) => {
     try{
         const {ProjectId, id} = req.query;
-        console.log('projectid', ProjectId)
-        console.log('id', id)
         const studyToCompare = await Study.findByPk(id);
         const allStudy = await Study.findAll({where : {ProjectId}, attributes: ['id','title','authors','generalStatus','year']});
         let dataFinal = [];
@@ -194,7 +192,6 @@ const updateStudy = async (req, res) => {
 
 const findStudies = async (req, res) => {
     try {
-        console.log('aqui');
         const Op = Sequelize.Op;
         const {search, base, ProjectId} = req.query;
         let result;

@@ -79,7 +79,7 @@ const updateProject = async (req, res) => {
             CoordinatorId
         },
         {where: {id}});
-        console.log(result);
+        
         if(!!result){
             return res.status(200).json({message: "projeto atulizado"});
         }else{

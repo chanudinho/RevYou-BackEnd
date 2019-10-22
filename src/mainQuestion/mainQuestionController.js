@@ -60,7 +60,6 @@ const updateMainQuestion = async (req, res) =>{
             design
         },
         {where: {id}});
-        console.log("res =", result);
         if(result) {
             return res.status(200).json({message: "Main Question atulizado"});
         }else{
