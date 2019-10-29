@@ -1,23 +1,17 @@
 const {Language, Project} = require('../../sequelize/models/index');
 const uuid = require("uuid/v4");
 
-const createLanguage = (req, res) => {
+const createLanguage = async (req, res) => {
     try {
-        const {studiesLanguage} = req.body; 
-        Language.findOrCreate({where: {studiesLanguage}, defaults: {
-            id: uuid(),
-            studiesLanguage
-        }})
-        .spread((mainQuestion, created) => {
-            mainQuestion.get({
-                plain: true
-            });
-            if(created === true){
-                return res.status(201).send('Language cadastrada com sucesso');
-            }else{
-                return res.status(401).send('Language ja cadastrado');
-            }
+        const {languages} = req.body;
+        const result = languages.map(async language => {
+            return await Language.findOrCreate({where: {studiesLanguage : language}, defaults: {
+                id: uuid(),
+                studiesLanguage: language
+            }});
         });
+        await Promise.all(result);
+        return res.status(201).send('Language cadastrada com sucesso');
     } catch (err) {
         return res.status(500).json({message: 'error interno', err});
     }
@@ -25,10 +19,13 @@ const createLanguage = (req, res) => {
 
 const createProjectsLanguages = async (req, res) => {
     try {
-        const {studiesLanguage, ProjectId} = req.body
+        const {languages, ProjectId} = req.body
         const project = await Project.findByPk(ProjectId);
-        const language = await Language.findOne({where: {studiesLanguage}});
-        await project.addLanguagues(language);
+        const result = languages.map(async language => {
+            const languageRes = await Language.findOne({where: {studiesLanguage : language}});
+            return await project.addLanguagues(languageRes); 
+        })
+        await Promise.all(result);
         return res.status(201).send('Language associada com o projeto com sucesso');
     } catch (err) {
         return res.status(500).json({message: 'error interno' , err});
@@ -53,8 +50,24 @@ const getLanguages = async (req, res) => {
     }
 }
 
+const deleteProjectLanguages = async (req, res) => {
+    try {
+        const {ProjectId, languages} = req.query;
+        const project = await Project.findByPk(ProjectId);
+        const result = languages.map(async language => {
+            const languageRes = await Language.findOne({where: {studiesLanguage: language}});
+            return await project.removeLanguagues(languageRes);
+        })
+        await Promise.all(result)
+        return res.status(200).json('deletado com sucesso');
+    } catch (err) {
+        return res.status(500).json({message: 'error interno', err});
+    }
+}
+
 module.exports = {
     createLanguage,
     createProjectsLanguages,
-    getLanguages
+    getLanguages,
+    deleteProjectLanguages
 }

@@ -3,7 +3,8 @@ const languageController = require('./languageController');
 
 const languageRouter = () => {
     router.route('/')
-    .post(languageController.createLanguage);
+    .post(languageController.createLanguage)
+    .delete(languageController.deleteProjectLanguages);
 
     router.route('/:ProjectId')
     .get(languageController.getLanguages);
