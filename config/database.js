@@ -1,8 +1,13 @@
+const password = process.env.DATABASE_PASSWORD || 'postgres';
+const username = process.env.DATABASE_USERNAME || '1234';
+const database = process.env.DATABASE_NAME || 'revyou';
+const host = process.env.DATABASE_HOST || '127.0.0.1';
+
 module.exports = { 
-  username: "postgres",
-  password: "1234",
-  database: "revyou",
-  host: "127.0.0.1",
+  username: username,
+  password: password,
+  database: database,
+  host: host,
   dialect: "postgres"
 }
 /*,
