@@ -1,5 +1,5 @@
-const password = process.env.DATABASE_PASSWORD || 'postgres';
-const username = process.env.DATABASE_USERNAME || '1234';
+const password = process.env.DATABASE_PASSWORD || '1234';
+const username = process.env.DATABASE_USERNAME || 'postgres';
 const database = process.env.DATABASE_NAME || 'revyou';
 const host = process.env.DATABASE_HOST || '127.0.0.1';
 
