@@ -2,17 +2,15 @@ const router = require('express').Router();
 const mainQuestionController = require('./mainQuestionController');
 
 const mainQuestionRouter = () => {
-    router.route('/')
-    .post(mainQuestionController.createMainQuestion);
+  router.route('/').post(mainQuestionController.createMainQuestion);
 
-    router.route('/:ProjectId')
-    .get(mainQuestionController.getMainQuestion);
+  router.route('/:ProjectId').get(mainQuestionController.getMainQuestion);
 
-    router.route('/updateMainQuestion/:id')
+  router
+    .route('/updateMainQuestion/:id')
     .put(mainQuestionController.updateMainQuestion);
 
-    return router;
-}
-
+  return router;
+};
 
 module.exports = mainQuestionRouter;

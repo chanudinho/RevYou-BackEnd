@@ -1,17 +1,18 @@
 const router = require('express').Router();
 const adaptedQueryController = require('./adaptedQueryController');
 
-const adaptedQueryRouter = () =>{
-    
-    router.route('/')
+const adaptedQueryRouter = () => {
+  router
+    .route('/')
     .get(adaptedQueryController.getAdaptedQuery)
     .post(adaptedQueryController.createAdaptedQuery);
-    
-    router.route('/:id')
+
+  router
+    .route('/:id')
     .put(adaptedQueryController.updateAdaptedQuery)
     .delete(adaptedQueryController.deleteAdaptedQuery);
 
-    return router;
-}
+  return router;
+};
 
 module.exports = adaptedQueryRouter;

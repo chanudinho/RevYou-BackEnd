@@ -1,39 +1,42 @@
-'use strict';
-var uuid = require('uuid/v4');
+const uuid = require('uuid/v4');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Project", {
+    return queryInterface.createTable('Project', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: uuid()
+        defaultValue: uuid(),
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       description: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       objective: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       reviewType: {
-        type: Sequelize.ENUM('Systematic Review', 'Systematic Mapping', 'Not Systematic')
+        type: Sequelize.ENUM(
+          'Systematic Review',
+          'Systematic Mapping',
+          'Not Systematic'
+        ),
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
 
-  down: (queryInterface) => {
-    return queryInterface.dropTable("Project");
-  }
+  down: queryInterface => {
+    return queryInterface.dropTable('Project');
+  },
 };

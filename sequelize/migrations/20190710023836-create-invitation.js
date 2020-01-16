@@ -1,6 +1,4 @@
-'use strict';
-
-var uuid = require('uuid/v4');
+const uuid = require('uuid/v4');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -9,27 +7,27 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: uuid()
+        defaultValue: uuid(),
       },
       email: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
-      situation:{
+      situation: {
         allowNull: false,
-        type: Sequelize.ENUM('accept', 'denied', 'pending')
+        type: Sequelize.ENUM('accept', 'denied', 'pending'),
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Invitation');
-  }
+  },
 };

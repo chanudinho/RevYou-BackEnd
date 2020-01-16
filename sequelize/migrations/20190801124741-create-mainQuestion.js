@@ -1,6 +1,4 @@
-'use strict';
-
-var uuid = require('uuid/v4');
+const uuid = require('uuid/v4');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -9,40 +7,40 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: uuid()
+        defaultValue: uuid(),
       },
       description: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       population: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
-      intervation:{
-        type: Sequelize.TEXT
+      intervation: {
+        type: Sequelize.TEXT,
       },
       control: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       results: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       context: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       design: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('MainQuestion');
-  }
+  },
 };
