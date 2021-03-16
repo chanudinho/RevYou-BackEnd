@@ -5,7 +5,7 @@ const {
   Researcher,
   Project,
 } = require('../../sequelize/models/index');
-
+  
 const createInvitation = async (req, res) => {
   try {
     const { email, ProjectId } = req.body;
